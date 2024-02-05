@@ -18,6 +18,8 @@ struct DetailView: View {
         self.viewModel = viewModel
         _editedText = State(initialValue: note.text)
         _fileName = State(initialValue: note.fileName)
+        
+        
     }
     
     var body: some View {

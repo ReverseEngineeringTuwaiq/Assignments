@@ -14,6 +14,8 @@ struct AddNoteView: View {
 
     init(viewModel: NoteViewModel) {
         self.viewModel = viewModel
+        
+        
     }
     
     var body: some View {

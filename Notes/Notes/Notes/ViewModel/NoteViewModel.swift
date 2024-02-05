@@ -12,6 +12,26 @@ class NoteViewModel: ObservableObject {
 
     init() {
         loadNotes()
+        
+//        // Get the document directory URL
+//        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+//            // The path to the document directory
+//            let documentDirectoryPath = documentDirectory.path
+//            print("Document Directory Path: \(documentDirectoryPath)")
+//        } else {
+//            print("Unable to access the document directory.")
+//        }
+
+        
+        do{
+            let fm = FileManager.default
+            let docURL = try fm.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil , create: false)
+           // let folderURL = docURL.appendingPathComponent(folder)
+        }catch{
+            print(error)
+        }
+        
+        
     }
 
     func loadNotes() {
