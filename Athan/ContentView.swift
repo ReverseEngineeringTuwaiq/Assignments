@@ -148,8 +148,6 @@ struct PrayerTimesData: Decodable {
     let timings: [String: String]
 }
 
-struct PrayerTimesView_Previews: PreviewProvider {
-    static var previews: some View {
-        PrayerTimesView()
-    }
+#Preview{
+    PrayerTimesView()
 }
