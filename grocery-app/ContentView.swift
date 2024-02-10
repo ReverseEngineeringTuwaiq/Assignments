@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @AppStorage("didOnboard") private var didOnboard: Bool = false
+    @State private var didSplash: Bool = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if didSplash {
+            if didOnboard {
+                MainView()
+                    .environmentObject(CartViewModel())
+                    .environmentObject(ListViewModel())
+            } else {
+                OnboardingView(didOnboard: $didOnboard)
+            }
+        } else {
+            SplashView(didSplash: $didSplash)
         }
-        .padding()
     }
 }
 
