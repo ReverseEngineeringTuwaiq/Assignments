@@ -10,7 +10,7 @@ import SwiftUI
 struct ItemsListView: View {
     
     @Environment(\.dismiss) var dismiss
-//    @EnvironmentObject private var cartVM: CartViewModel
+    @State private var searchText: String = ""
     
     let category: Category
     
@@ -25,7 +25,7 @@ struct ItemsListView: View {
                         .fontWeight(.bold)
                 }
                 HStack {
-                    Text("Search by item name")
+                    TextField("Search by item name", text: $searchText)
                         .foregroundStyle(Color.gray)
                         .font(.caption)
                         .fontWeight(.bold)
@@ -41,13 +41,24 @@ struct ItemsListView: View {
             .padding(.bottom)
             
             ScrollView {
-                VStack(spacing: 20) {
-                    ForEach(items.filter({ $0.category == category })) { item in
-                        ItemView(item: item)
+                if searchText.isEmpty {
+                    VStack(spacing: 20) {
+                        ForEach(items.filter({ $0.category == category })) { item in
+                            ItemView(item: item)
+                        }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 4)
+                } else {
+                    VStack(spacing: 20) {
+                        ForEach(items.filter({ $0.category == category }).filter({ $0.name.lowercased().contains(searchText.lowercased())})) { item in
+                            ItemView(item: item)
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 4)
+                
             }
         }
         .navigationBarBackButtonHidden()
@@ -57,5 +68,6 @@ struct ItemsListView: View {
 
 #Preview {
     ItemsListView(category: .fruits)
-//        .environmentObject(CartViewModel())
+        .environmentObject(CartViewModel())
+        .environmentObject(ListViewModel())
 }

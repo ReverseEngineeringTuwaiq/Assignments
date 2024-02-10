@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @AppStorage("didOnboard") private var didOnboard: Bool = false
+    @State private var didOnboard: Bool = false
     @State private var didSplash: Bool = false
     
     var body: some View {

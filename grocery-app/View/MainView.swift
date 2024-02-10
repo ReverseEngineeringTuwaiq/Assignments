@@ -34,7 +34,7 @@ struct MainView: View {
                         .font(.headline)
                         .fontWeight(.heavy)
                     
-                    Text("Maadi, Cairo")
+                    Text("17279, Riyadh")
                 }
                 Spacer()
                 Image("person")

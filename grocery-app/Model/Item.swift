@@ -13,6 +13,8 @@ struct Item: Identifiable, Hashable {
     let name: String
     let cost: Double
     let imageName: String
+    
+    var quantity: Int = 0
 }
 
 let items: [Item] = [

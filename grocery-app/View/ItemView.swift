@@ -42,8 +42,14 @@ struct ItemView: View {
                             .fontWeight(.bold)
                     }
                     Spacer()
-                    if inCart {
-                        Button(action: { removeFromCart(item: item) }) {
+                    if inCart || inList {
+                        Button(action: {
+                            if inCart {
+                                removeFromCart(item: item)
+                            } else if inList {
+                                removeFromList(item: item)
+                            }
+                        }) {
                             Image(systemName: "trash")
                                 .foregroundStyle(Color.app_red)
                         }
@@ -87,6 +93,30 @@ struct ItemView: View {
                                 }
                                 .cornerRadius(8)
                         }
+                    } else {
+                        HStack(spacing: 10) {
+                            Button(action: decrease) {
+                                Image(systemName: "minus")
+                                    .foregroundStyle(Color.white)
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.app_green)
+                                    .cornerRadius(6)
+                            }
+                            .disabled(item.quantity == 1)
+                            
+                            Text("\(item.quantity)")
+                                .frame(width: 25)
+                                .font(.headline)
+                                .fontWeight(.bold)
+                            
+                            Button(action: increase) {
+                                Image(systemName: "plus")
+                                    .foregroundStyle(Color.white)
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.app_green)
+                                    .cornerRadius(6)
+                            }
+                        }
                     }
                 }
             }
@@ -101,6 +131,23 @@ struct ItemView: View {
         }
     }
     
+    private func increase() {
+        withAnimation {
+            if let index = cartVM.cartItems.firstIndex(of: item) {
+                cartVM.cartItems[index].quantity += 1
+            }
+        }
+    }
+    
+    private func decrease() {
+        if item.quantity == 0 { return }
+        withAnimation {
+            if let index = cartVM.cartItems.firstIndex(of: item) {
+                cartVM.cartItems[index].quantity -= 1
+            }
+        }
+    }
+    
     private func addToCart(item: Item) {
         if inList {
             withAnimation {
@@ -112,6 +159,9 @@ struct ItemView: View {
         
         withAnimation {
             cartVM.cartItems.append(item)
+            if let index = cartVM.cartItems.firstIndex(of: item) {
+                cartVM.cartItems[index].quantity += 1
+            }
         }
     }
     
@@ -119,12 +169,21 @@ struct ItemView: View {
         if inCart {
             withAnimation {
                 if let index = cartVM.cartItems.firstIndex(of: item) {
+                    cartVM.cartItems[index].quantity = 0
                     cartVM.cartItems.remove(at: index)
                 }
             }
         }
-        
-        
+    }
+    
+    private func removeFromList(item: Item) {
+        if inList {
+            withAnimation {
+                if let index = listVM.listItems.firstIndex(of: item) {
+                    listVM.listItems.remove(at: index)
+                }
+            }
+        }
     }
     
     private func addToList(item: Item) {
@@ -137,6 +196,7 @@ struct ItemView: View {
         if inCart {
             withAnimation {
                 if let index = cartVM.cartItems.firstIndex(of: item) {
+                    cartVM.cartItems[index].quantity -= 1
                     cartVM.cartItems.remove(at: index)
                 }
             }
