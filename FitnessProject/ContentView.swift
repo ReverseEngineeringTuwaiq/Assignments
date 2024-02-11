@@ -8,15 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    //@State var selectedTab: Tab = .map
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        Text("")
+        
+        
+//        ZStack {
+//            VStack{
+//                TabView(selection: $selectedTab)
+//                ForEach(Tab.allCases, id: \.rawValue) { tab in
+//                    //
+//                } .tag(Tab)
+//            }
+//            VStack{
+//                TabBar(selectedTab: $selectedTab)
+//            }
+//       }
     }
+    
 }
 
 #Preview {

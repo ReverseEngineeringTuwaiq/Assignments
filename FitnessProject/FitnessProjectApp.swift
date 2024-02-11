@@ -11,7 +11,10 @@ import SwiftUI
 struct FitnessProjectApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+           ContentView22(selectedTab: .map)
+             // WorkoutsPage()
+            // ProfilePage()
+           // ProgressReportPage()
         }
     }
 }
