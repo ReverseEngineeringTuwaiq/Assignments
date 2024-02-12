@@ -188,13 +188,13 @@ struct Home: View {
                                                 Text(track.title)
                                                     .font(.headline)
                                                     .foregroundColor(.white)
-                                                    .padding(.leading, 8)
+                                                    .padding(.leading, 16)
                                                 HStack{
                                                 Text(track.subtitle)
                                                     .font(.subheadline)
                                                     .foregroundColor(.gray)
                                                     .lineLimit(2)
-                                                    .padding(.leading, 8)
+                                                    .padding(.leading, 16)
                                                     
                                                 Spacer()
                                                     
